@@ -12,7 +12,8 @@ require("mason-lspconfig").setup({
     ensure_installed = {
         "lua_ls",
         "rust_analyzer",
-        "zls"
+        "zls",
+        "clangd"
     }
 })
 
@@ -31,4 +32,22 @@ lspconfig.lua_ls.setup {}
 lspconfig.rust_analyzer.setup {}
 
 lspconfig.zls.setup {}
+
+lspconfig.clangd.setup {}
+
+vim.api.nvim_create_autocmd("LspAttach", {
+    callback = function (args)
+        local client = vim.lsp.get_client_by_id(args.data.client_id)
+        if client.server_capabilities.semanticTokensProvider then
+            client.server_capabilities.semanticTokensProvider = {
+                full = true,
+                legend = {
+                    tokenTypes = client.server_capabilities.semanticTokensProvider.legend.tokenTypes,
+                    tokenModifiers = client.server_capabilities.semanticTokensProvider.legend.tokenModifiers,
+                },
+                range = true
+            }
+        end
+    end
+})
 

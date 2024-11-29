@@ -4,7 +4,7 @@ return {
     "neovim/nvim-lspconfig",
     "hrsh7th/cmp-nvim-lsp",
     "hrsh7th/nvim-cmp",
-    cond = function() 
+    cond = function()
         return not vim.g.vscode
     end
 }
