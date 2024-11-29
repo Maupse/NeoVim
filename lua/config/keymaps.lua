@@ -2,21 +2,31 @@
 -- <C-W> followed by h j k l will switch windows
 -- <C-W>s splits horizontally and adds a new window on top
 -- <C-W>v splits vertically and adds a new window on the left
+
+
+-- Copy pasting from clipboard
 vim.keymap.set("v", "<leader>c", '"*y')
 
 vim.keymap.set("n", "<leader>v", '"*p')
 
+-- Misspelling w still works
 vim.api.nvim_create_user_command("W", "w", {})
 
+-- Writing Buffer with strg+s
 vim.keymap.set("n", "<C-s>", ":w<CR>")
 
+-- Going to the last buffer with Backspace
 vim.keymap.set("n", "<BS>", ":b#<CR>")
 
 local function vscode_incompatible()
+    -- Basic Menus
     vim.keymap.set("n", "<leader>l", ":Lazy<CR>")
     vim.keymap.set("n", "<leader>m", ":Mason<CR>")
-    vim.keymap.set("n", "<leader>e", ":NvimTreeToggle .<CR>")
+    vim.keymap.set("n", "<leader>e", ":NvimTreeToggle<CR>")
+    vim.api.nvim_set_keymap("n", "<leader>g", "<cmd>lua lazygit_toggle()<CR>", {noremap = true})
+    vim.keymap.set("n", "<leader>cd", ":cd %:p:h<CR>", {noremap = true})
 
+    -- Open NeoVim config
     if vim.os == "windows" then 
         vim.keymap.set("n", "<leader>d", function()
            local env = os.getenv("LocalAppData")
@@ -25,16 +35,17 @@ local function vscode_incompatible()
         end)
     end
 
-    --move line up or down. The == i auto indent--
+    --Move Line up or down. The == i auto indent--
     vim.keymap.set("n", "<A-j>", ":m +1<CR>==")
     vim.keymap.set("n", "<A-k>", ":m -2<CR>==")
 
+    -- Telescope
     local builtin = require('telescope.builtin')
     vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'Telescope find files' })
     vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = 'Telescope live grep' })
     vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = 'Telescope buffers' })
     vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope help tags' })
-    end
+end
 
 -- Harpoon Keymaps
 local function harpoon_keymaps() 

@@ -8,6 +8,14 @@ if not vim.os then
     end
 end
 
+function ensure_dependency(cmd, install_cmd)
+    if vim.fn.executable(cmd) == 0 then
+        print("Installing " .. cmd .. "...")
+        vim.fn.system(install_cmd)
+    end
+end
+
+
 vim.notify(string.format("Detected OS is = %s", vim.os))
 
 vim.g.mapleader = " "

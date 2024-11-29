@@ -1,11 +1,3 @@
-local function ensure_dependency(cmd, install_cmd)
-    print("You still need to make the function 'ensure_dependency' inside telescope config a global multiuse one")
-    if vim.fn.executable(cmd) == 0 then
-        print("Installing " .. cmd .. "...")
-        vim.fn.system(install_cmd)
-    end
-end
-
 if vim.os == "windows" then
     if not vim.fn.executable("scoop") then
         error("You need to install scoop before running neovim to install all dependencies")
