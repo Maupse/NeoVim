@@ -13,7 +13,8 @@ require("mason-lspconfig").setup({
         "lua_ls",
         "rust_analyzer",
         "zls",
-        "clangd"
+        "clangd",
+        "elixirls"
     }
 })
 
@@ -34,6 +35,8 @@ lspconfig.rust_analyzer.setup {}
 lspconfig.zls.setup {}
 
 lspconfig.clangd.setup {}
+
+lspconfig.elixirls.setup {}
 
 vim.api.nvim_create_autocmd("LspAttach", {
     callback = function (args)

@@ -8,7 +8,4 @@ return {
     config = function()
         require("nvim-tree").setup {}
     end,
-    cond = function()
-        return not vim.g.vscode
-    end
 }

@@ -5,7 +5,4 @@
 	config = function(_, opts)
 		require("witch").setup(opts)
 	end,
-    cond = function()
-        return not vim.g.vscode
-    end
 }

@@ -36,7 +36,6 @@ local function select_prev(fallback)
     else
         fallback()
     end
-    
 end
 
 cmp.setup({
