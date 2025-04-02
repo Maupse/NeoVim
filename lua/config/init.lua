@@ -4,6 +4,6 @@ if vim.g.vscode then
 else
     require("config.lazy")
     require("config.editor_prefs")
-    require("config.keymaps")
     require("config.plugin_config")
+    require("config.keymaps")
 end

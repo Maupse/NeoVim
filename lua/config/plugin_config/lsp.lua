@@ -14,7 +14,11 @@ require("mason-lspconfig").setup({
         "rust_analyzer",
         "zls",
         "clangd",
-        "elixirls"
+        "elixirls",
+        "ts_ls",
+        "cssls",
+        "wgsl_analyzer",
+        "pyright",
     }
 })
 
@@ -37,6 +41,26 @@ lspconfig.zls.setup {}
 lspconfig.clangd.setup {}
 
 lspconfig.elixirls.setup {}
+
+lspconfig.gdscript.setup {}
+
+lspconfig.ts_ls.setup {}
+
+lspconfig.cssls.setup {}
+
+lspconfig.wgsl_analyzer.setup {}
+
+lspconfig.pyright.setup {}
+
+vim.api.nvim_create_autocmd("BufEnter", {
+    callback = function()
+        if vim.bo.filetype == "gdscript" then
+            vim.bo.expandtab = false    -- Use spaces for other files
+        else
+            vim.bo.expandtab = true
+        end
+    end,
+})
 
 vim.api.nvim_create_autocmd("LspAttach", {
     callback = function (args)

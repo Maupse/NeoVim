@@ -3,10 +3,9 @@
 -- <C-W>s splits horizontally and adds a new window on top
 -- <C-W>v splits vertically and adds a new window on the left
 
-
+local function basics()
 -- Copy pasting from clipboard
 vim.keymap.set("v", "<leader>c", '"*y', {desc = "copy to clipboard"})
-
 vim.keymap.set("n", "<leader>v", '"*p', {desc = "paste from clipboard"})
 
 -- Misspelling w still works
@@ -14,7 +13,13 @@ vim.api.nvim_create_user_command("W", "w", {desc = "write the buffer"})
 
 -- Writing Buffer with strg+s
 vim.keymap.set("n", "<C-s>", ":w<CR>", {desc = "write the buffer"})
+end
 
+local function commenting()
+    -- TODO
+    vim.keymap.set("n", "<leader>cc", ":norm i//<CR>", { noremap = true, desc = "Toggle comment" })
+    vim.keymap.set("v", "<leader>cc", ":'<,'>norm i//<CR>", { noremap = true, desc = "Toggle comment range" })
+end
 
 local function terminal()
     -- Terminal keymaps
@@ -28,17 +33,16 @@ local function terminal()
 end
 
 
+local function menus()
 -- Basic Menus
 vim.keymap.set("n", "<leader>l", ":Lazy<CR>", {desc = "open lazy menu"})
 vim.keymap.set("n", "<leader>m", ":Mason<CR>", {desc = "open mason menu"})
+vim.keymap.set("n", "<C-e>", ":NvimTreeOpen<CR>", {desc = "toggle tree file explorer"})
 vim.keymap.set("n", "<leader>e", ":NvimTreeToggle<CR>", {desc = "toggle tree file explorer"})
 vim.keymap.set("n", "<leader>.e", ":NvimTreeOpen .<CR>", {desc = "open tree in dir neovim was called in"})
-
 vim.api.nvim_set_keymap("n", "<leader>g", "<cmd>lua lazygit_toggle()<CR>",
 {desc = "open git custom terminal", noremap = true})
-
--- Going to the last buffer with Backspace
-vim.keymap.set("n", "<BS>", ":b#<CR>", {desc = "open last buffer"})
+end
 
 -- Open NeoVim config
 if vim.os == "windows" then 
@@ -49,15 +53,31 @@ if vim.os == "windows" then
     end)
 end
 
+local function moving_around()
 --Move Line up or down. The == i auto indent--
 vim.keymap.set("n", "<A-j>", ":m +1<CR>==", {desc = "switch curr line with line below"})
 vim.keymap.set("n", "<A-k>", ":m -2<CR>==", {desc = "switch curr line with line above"})
+
+vim.keymap.set("v", "<A-j>", ":m '>+1<CR>gv=gv")
+vim.keymap.set("v", "<A-k>", ":m '<-2<CR>gv=gv")
+
+-- Smarter indent moving
+vim.keymap.set("v", "<", "<gv")
+vim.keymap.set("v", ">", ">gv")
+
+-- Moving via Tab and S-Tab
+vim.keymap.set("n", "<TAB>", ":bn<CR>")
+vim.keymap.set("n", "<S-TAB>", ":bp<CR>")
+
+-- Going to the last buffer with Backspace
+vim.keymap.set("n", "<BS>", ":b#<CR>", {desc = "open last buffer"})
+
 -- <A-h> Harpoon prev item
 -- <A-l> Harpoon next item
 
 -- <C-j> Telescope move down
 -- <C-k> Telescope move up
-
+end
 
 -- Harpoon Keymaps
 local function harpoon_keymaps() 
@@ -92,7 +112,7 @@ local function lsp_keymaps()
         vim.keymap.set('n', 'gs', '<cmd>lua vim.lsp.buf.signature_help()<cr>', opts)
         vim.keymap.set('n', '<F2>', '<cmd>lua vim.lsp.buf.rename()<cr>', opts)
         vim.keymap.set({'n', 'x'}, '<F3>', '<cmd>lua vim.lsp.buf.format({async = true})<cr>', opts)
-        vim.keymap.set('n', '<F4>', '<cmd>lua vim.lsp.buf.code_action()<cr>', opts)
+        vim.keymap.set('n', 'qf', '<cmd>lua vim.lsp.buf.code_action()<cr>', opts)
         vim.keymap.set('n', "<leader>k", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
 
       end,
@@ -123,6 +143,10 @@ local function telescope()
     vim.keymap.set("n", "<leader>fu", "<cmd>Telescope undo<CR>")
 end
 
+basics()
+commenting()
+menus()
+moving_around()
 harpoon_keymaps()
 lsp_keymaps()
 terminal()
