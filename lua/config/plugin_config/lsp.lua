@@ -19,6 +19,7 @@ require("mason-lspconfig").setup({
         "cssls",
         "wgsl_analyzer",
         "pyright",
+        "glsl_analyzer",
     }
 })
 
@@ -32,7 +33,15 @@ defaults.capabilities = vim.tbl_deep_extend(
 )
 
 -- Setup calls will overwrite each other
-lspconfig.lua_ls.setup {}
+lspconfig.lua_ls.setup {
+  settings = {
+    Lua = {
+      diagnostics = {
+        globals = { "vim" },
+      },
+    },
+  },
+}
 
 lspconfig.rust_analyzer.setup {}
 
@@ -51,6 +60,10 @@ lspconfig.cssls.setup {}
 lspconfig.wgsl_analyzer.setup {}
 
 lspconfig.pyright.setup {}
+
+lspconfig.glsl_analyzer.setup {}
+
+
 
 vim.api.nvim_create_autocmd("BufEnter", {
     callback = function()
