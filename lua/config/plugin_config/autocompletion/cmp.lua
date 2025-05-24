@@ -1,3 +1,4 @@
+
 local cmp = require("cmp")
 
 -- Attempts a snippet jump, if a new position is found returns true
@@ -63,9 +64,12 @@ local function select_prev(fallback)
     end
 end
 
+
+-- Cmp Sources
 cmp.setup({
     sources = {
         {name = 'nvim_lsp'},
+        {name = 'copilot'}
     },
     snippet = {
         expand = function(args)

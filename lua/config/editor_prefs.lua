@@ -1,5 +1,5 @@
 --keep terms highlightet when searching
-vim.opt.hlsearch = false
+vim.opt.hlsearch = true
 
 --Line Numbers
 vim.opt.number = true

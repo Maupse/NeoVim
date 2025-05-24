@@ -1,13 +1,3 @@
-if vim.os == "windows" then
-    if not vim.fn.executable("scoop") then
-        error("You need to install scoop before running neovim to install all dependencies")
-    end
-    ensure_dependency("rg", "scoop install ripgrep")
-    ensure_dependency("fd", "scoop install fd")
-else
-    print("YOU STILL NEED TO IMPLEMENT THE DEPENDENCY INSTALLATION FOR OTHER SYSTEMS")
-end
-
 local telescope = require("telescope")
 local actions = require("telescope.actions")
 

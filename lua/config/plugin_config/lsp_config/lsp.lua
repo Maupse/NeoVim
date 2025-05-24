@@ -1,68 +1,37 @@
-require("mason").setup({
-    ui = {
-        icons = {
-            package_installed = "✓",
-            package_pending = "➜",
-            package_uninstalled = "✗"
-        }
-    }
-})
+vim.lsp.default_capabilities = require('cmp_nvim_lsp').default_capabilities()
 
+-- Will automatically enable all the servers
 require("mason-lspconfig").setup({
     ensure_installed = {
         "lua_ls",
         "rust_analyzer",
         "zls",
         "clangd",
-        "elixirls",
+        "nextls",
         "ts_ls",
         "cssls",
         "wgsl_analyzer",
         "pyright",
         "glsl_analyzer",
+        "svelte",
+        "eslint",
+        "gdscript"
     }
 })
 
-local lspconfig = require("lspconfig")
-local defaults = lspconfig.util.default_config
-
-defaults.capabilities = vim.tbl_deep_extend(
-    "force",
-    defaults.capabilities,
-    require("cmp_nvim_lsp").default_capabilities()
-)
-
--- Setup calls will overwrite each other
-lspconfig.lua_ls.setup {
-  settings = {
-    Lua = {
-      diagnostics = {
-        globals = { "vim" },
-      },
-    },
-  },
+-- Configuration of the servers
+vim.lsp.config['lua_ls'] = {
+    settings = {
+        Lua = {
+            diagnostics = {
+                globals = {"vim"}
+            },
+            runtime = {
+                version = 'LuaJIT'
+            }
+        }
+    }
 }
-
-lspconfig.rust_analyzer.setup {}
-
-lspconfig.zls.setup {}
-
-lspconfig.clangd.setup {}
-
-lspconfig.elixirls.setup {}
-
-lspconfig.gdscript.setup {}
-
-lspconfig.ts_ls.setup {}
-
-lspconfig.cssls.setup {}
-
-lspconfig.wgsl_analyzer.setup {}
-
-lspconfig.pyright.setup {}
-
-lspconfig.glsl_analyzer.setup {}
-
 
 
 vim.api.nvim_create_autocmd("BufEnter", {
