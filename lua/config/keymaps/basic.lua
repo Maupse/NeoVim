@@ -5,6 +5,8 @@
 vim.keymap.set("v", "<leader>c", '"*y', {desc = "copy to clipboard"})
 vim.keymap.set("n", "<leader>v", '"*p', {desc = "paste from clipboard"})
 
+-- I dont know why <C-q> is block mode in windows terminal
+
 -- Misspelling w still works
 vim.api.nvim_create_user_command("W", "w", {desc = "write the buffer"})
 
