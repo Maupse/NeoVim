@@ -6,3 +6,7 @@
     end
 
     vim.cmd("autocmd! TermOpen term://* lua set_terminal_keymaps()")
+
+
+
+vim.keymap.set("n", "<C-\\>", ":ToggleTerm<CR>", { desc = "Toggle Terminal" })
