@@ -3,18 +3,23 @@ vim.lsp.default_capabilities = require('cmp_nvim_lsp').default_capabilities()
 -- Will automatically enable all the servers
 require("mason-lspconfig").setup({
     ensure_installed = {
-        "lua_ls",
-        "rust_analyzer",
-        "zls",
-        "clangd",
-        "nextls",
-        "ts_ls",
-        "cssls",
-        "wgsl_analyzer",
-        "pyright",
-        "glsl_analyzer",
-        "svelte",
-        "eslint",
+        "lua_ls", -- Lua language server
+        "pyright", -- Python language server
+
+        "rust_analyzer", -- Rust language server
+        "zls", -- zig language server
+        "clangd", -- C/C++ language server
+
+        "nextls", -- Elixir language server
+        "ts_ls", -- TypeScript/JavaScript language server
+        "cssls", -- CSS language server
+        "tailwindcss", -- Tailwind CSS language server
+
+        "svelte", -- Svelte language server
+        "eslint", -- ESLint language server
+
+        "wgsl_analyzer", -- WebGPU Shading Language server
+        "glsl_analyzer", -- GLSL language server
     }
 })
 

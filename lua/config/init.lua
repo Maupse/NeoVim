@@ -1,3 +1,11 @@
+-- Global function for unsafe calling of configuration
+function call_unsafe(package)
+   local ok, err = pcall(require, package)
+   if not ok then
+       vim.notify("ERROR calling keymaps of: " .. package .. " -- " .. err, vim.log.levels.ERROR)
+   end
+end
+
 if vim.g.vscode then
     vim.notify("loading vscode-neovim configuration...")
     require("config.vscode")
@@ -10,10 +18,9 @@ else
     end
 
     require("config.editor_prefs")
-    require("config.keymaps")
 
-    local ok, err = pcall(require, "config.plugin_config")
-    if not ok then
-        vim.notify("ERROR CALLING PLUGIN CONFIG: " ..err, vim.log.levels.ERROR)
-    end
+    call_unsafe('config.plugin_config')
+
+    -- It is important that keybind are loaded in after the plugins
+    require("config.keymaps")
 end

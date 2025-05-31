@@ -2,28 +2,28 @@
 vim.keymap.set("n", "<leader>e", ":NvimTreeToggle<CR>", {desc = "toggle tree file explorer"})
 
 -- Open NeoVim config
-vim.keymap.set("n", "Qc", function()
+vim.keymap.set("n", "<leader>oc", function()
    local path = vim.fn.stdpath('config')
    vim.cmd("NvimTreeClose")
    local command = string.format("NvimTreeOpen %s", path)
    vim.cmd(command)
 end)
 
-vim.keymap.set("n", "Qd", function()
+vim.keymap.set("n", "<leader>od", function()
    local path = vim.fn.stdpath('data')
    vim.cmd("NvimTreeClose")
    local command = string.format("NvimTreeOpen %s", path)
    vim.cmd(command)
 end)
 
-vim.keymap.set("n", "Qw", function ()
+vim.keymap.set("n", "<leader>ow", function ()
    vim.cmd("NvimTreeClose")
    local cwd = vim.fn.getcwd()
    vim.cmd(string.format("NvimTreeOpen %s", cwd))
 end)
 
 -- Reveal file in system explorer
-vim.keymap.set('n', '<leader>re', function()
+vim.keymap.set('n', '<leader>oe', function()
     local current_dir = vim.fn.expand('%:p:h')
     if current_dir == '' then
         current_dir = vim.fn.getcwd()
@@ -39,9 +39,9 @@ vim.keymap.set('n', '<leader>re', function()
 end, { desc = 'Open file manager at current buffer location' })
 
 -- Change to current buffer's directory
-vim.keymap.set('n', '<leader>cD', '<cmd>lcd %:p:h<cr>', { desc = 'Change to current buffer directory' })
+vim.keymap.set('n', '<leader>ob', '<cmd>lcd %:p:h<cr>', { desc = 'Change to current buffer directory' })
 
-vim.keymap.set('n', '<leader>cd', function()
+vim.keymap.set('n', '<leader>oW', function()
     local git_root = vim.fs.find('.git', {
         upward = true,
         stop = vim.loop.os_homedir(),

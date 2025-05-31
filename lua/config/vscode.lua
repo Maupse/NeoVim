@@ -35,11 +35,14 @@ vim.api.nvim_create_user_command("W", "w", {})
 -- Writing Buffer with strg+s
 vim.keymap.set("n", "<C-s>", ":w<CR>")
 
+-- Remap because gi = go to implementation for lsp
+vim.keymap.set('n', 'gl', 'gi', { noremap = true, silent = true, desc = "go to last insert position"})
+
 -- Your existing commands
 vim.keymap.set('n', "<leader>e", function() vscode.call("workbench.view.explorer") end, {})
 vim.keymap.set("n", "<leader>qf", function() vscode.call("editor.action.quickFix") end, {})
 vim.keymap.set("n", "<leader>af", function() vscode.call("editor.action.autoFix") end, {})
-vim.keymap.set("n", "<leader>a", function() vscode.call("editor.action.fixAll") end, {})
+vim.keymap.set("n", "<leader>aaf", function() vscode.call("editor.action.fixAll") end, {})
 vim.keymap.set("n", "<leader>rs", function() vscode.call("vscode-neovim.restart") end, {})
 
 -- LSP Actions (equivalent to your LspAttach autocmd)
@@ -80,15 +83,15 @@ vim.keymap.set("n", "<leader>fu", function() vscode.call("workbench.action.showC
 
 
 -- Trouble plugin equivalents - Diagnostics and Problem Management
-vim.keymap.set("n", "<leader>xx", function() vscode.call("workbench.panel.markers.view.focus") end, { desc = "Show Problems Panel (Diagnostics)" })
-vim.keymap.set("n", "<leader>xX", function() vscode.call("editor.action.marker.nextInFiles") end, { desc = "Next Problem in Current File" })
-vim.keymap.set("n", "<leader>cs", function() vscode.call("workbench.action.gotoSymbol") end, { desc = "Go to Symbol in Editor" })
-vim.keymap.set("n", "<leader>cl", function() vscode.call("references-view.findReferences") end, { desc = "Find All References" })
-vim.keymap.set("n", "<leader>xL", function() vscode.call("workbench.panel.markers.view.focus") end, { desc = "Focus Problems Panel (Location List)" })
-vim.keymap.set("n", "<leader>xQ", function() vscode.call("workbench.panel.markers.view.focus") end, { desc = "Focus Problems Panel (Quickfix List)" })
+vim.keymap.set("n", "<leader>lt", function() vscode.call("workbench.panel.markers.view.focus") end, { desc = "Show Problems Panel (Diagnostics)" })
+vim.keymap.set("n", "<leader>lT", function() vscode.call("editor.action.marker.nextInFiles") end, { desc = "Next Problem in Current File" })
+vim.keymap.set("n", "<leader>ls", function() vscode.call("workbench.action.gotoSymbol") end, { desc = "Go to Symbol in Editor" })
+vim.keymap.set("n", "<leader>ll", function() vscode.call("references-view.findReferences") end, { desc = "Find All References" })
+vim.keymap.set("n", "<leader>lL", function() vscode.call("workbench.panel.markers.view.focus") end, { desc = "Focus Problems Panel (Location List)" })
+vim.keymap.set("n", "<leader>lq", function() vscode.call("workbench.panel.markers.view.focus") end, { desc = "Focus Problems Panel (Quickfix List)" })
 
 -- Reveal file in system explorer
-vim.keymap.set('n', '<leader>re', function()
+vim.keymap.set('n', '<leader>oe', function()
     local current_dir = vim.fn.expand('%:p:h')
     if current_dir == '' then
         current_dir = vim.fn.getcwd()
