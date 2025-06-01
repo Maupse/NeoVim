@@ -18,3 +18,5 @@ vim.keymap.set("n", "Qh", ":nohlsearch<CR>")
 
 -- Remap because gi = go to implementation for lsp
 vim.keymap.set('n', 'gl', 'gi', { noremap = true, silent = true, desc = "go to last insert position"})
+
+vim.keymap.set('n', 'qr', 'q', {noremap = true, desc = "recording"})
